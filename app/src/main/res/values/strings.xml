@@ -1,8 +1,3 @@
 <resources>
     <string name="app_name">Pat\'s Notes</string>
-    <string name="note">Note</string>
-    <string name="folder">Folder</string>
-    <string name="editNotes">Edit Notes</string>
-    <string name="folders">Folders</string>
-    <string name="add">Add</string>
 </resources>
