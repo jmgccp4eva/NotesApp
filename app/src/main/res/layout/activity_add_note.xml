@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/body"
-    tools:context=".MainActivity">
+    tools:context=".AddNote">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/app_name"
+            android:text="@string/addNote"
             android:textColor="#FFFFFF"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,30 +28,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/ivSaveNote"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:layout_marginEnd="5dp"
-            android:onClick="showPopUp"
+            android:onClick="saveNote"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24"
-            tools:ignore="UsingOnClickInXml" />
+            app:srcCompat="@drawable/ic_baseline_save_24"
+            tools:ignore="OnClick,UsingOnClickInXml" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listOfNotes"
+    <EditText
+        android:id="@+id/etNote"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:background="@null"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
