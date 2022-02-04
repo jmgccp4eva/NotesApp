@@ -13,12 +13,14 @@ import android.widget.Toast;
 public class AddFolder extends AppCompatActivity {
 
     EditText editText;
+    String folder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_folder);
         editText = findViewById(R.id.etNewFolderName);
+        folder = getIntent().getStringExtra("folder");
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }

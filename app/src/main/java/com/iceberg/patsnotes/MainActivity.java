@@ -48,10 +48,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (menuItem.getItemId()){
             case R.id.addNoteBtn:
                 i = new Intent(this,AddNote.class);
+                i.putExtra("folder",folder);
                 startActivity(i);
                 return true;
             case R.id.addFolderBtn:
                 i = new Intent(this,AddFolder.class);
+                i.putExtra("folder",folder);
                 startActivity(i);
                 return true;
             default:

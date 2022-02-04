@@ -1,5 +1,6 @@
 package com.iceberg.patsnotes;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +12,7 @@ import androidx.annotation.Nullable;
 public class NoteDatabase extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "patsNotesDB";
+    private static final String DATABASE_NAME = "patsNotesDB.db";
     private static final String DATABASE_TABLE = "patsNotesDBTable";
 
     private static final String KEY_ID = "id";
@@ -57,4 +58,19 @@ public class NoteDatabase extends SQLiteOpenHelper {
             Toast.makeText(context, "ERROR: "+e, Toast.LENGTH_SHORT).show();
         }
     }
+
+    public long addNote(Note note){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_TITLE,note.getTitle());
+        contentValues.put(KEY_CONTENT,note.getContent());
+        contentValues.put(KEY_TYPE,note.getType());
+        contentValues.put(KEY_DATE,note.getDate());
+        contentValues.put(KEY_PARENT,note.getParent());
+        Toast.makeText(context, "Type: "+note.getParent().getClass().getName(), Toast.LENGTH_SHORT).show();
+        long ID = sqLiteDatabase.insert(DATABASE_TABLE,null,contentValues);
+        Toast.makeText(context, "ID: "+ID, Toast.LENGTH_SHORT).show();
+        return ID;
+    }
+
 }
