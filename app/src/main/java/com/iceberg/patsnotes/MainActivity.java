@@ -1,6 +1,9 @@
 package com.iceberg.patsnotes;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,18 +14,21 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     NoteDatabase noteDatabase;
     TextView pageTitle;
     String folder;
+    RecyclerView recyclerView;
+    Adapter adapter;
+    List<Note> notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        noteDatabase = new NoteDatabase(this);
-        SQLiteDatabase sqLiteDatabase = noteDatabase.getWritableDatabase();
         folder = getIntent().getStringExtra("folder");
         int leng;
         try {
@@ -31,7 +37,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             leng = 0;
         }
         if(leng==0){ folder = "null"; }
-        Toast.makeText(this, ""+folder, Toast.LENGTH_SHORT).show();
+        recyclerView = findViewById(R.id.listOfNotes);
+        noteDatabase = new NoteDatabase(this);
+        notes = noteDatabase.getNotes(new String[]{"note", "null"});
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new Adapter(this,notes);
+        recyclerView.setAdapter(adapter);
     }
 
     public void showPopUp(View view) {
@@ -59,5 +70,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             default:
                 return false;
         }
+    }
+
+    public void deleteRecord(View view) {
     }
 }

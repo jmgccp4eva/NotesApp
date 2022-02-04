@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PatsNotes">
         <activity
+            android:name=".EditRecord"
+            android:exported="false" />
+        <activity
             android:name=".AddFolder"
             android:exported="false" />
         <activity

@@ -1,14 +1,11 @@
 package com.iceberg.patsnotes;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
-
 import java.util.Calendar;
 
 public class AddNote extends AppCompatActivity {
@@ -31,7 +28,6 @@ public class AddNote extends AppCompatActivity {
     public void saveNote(View view) {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-        Toast.makeText(this, "Save clicked", Toast.LENGTH_SHORT).show();
         String content = editText.getText().toString();
         String[] split = content.split("\n");
         String title = split[0];

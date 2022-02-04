@@ -1,13 +1,19 @@
 package com.iceberg.patsnotes;
 
+import static android.icu.text.MessagePattern.ArgType.SELECT;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NoteDatabase extends SQLiteOpenHelper {
 
@@ -67,10 +73,62 @@ public class NoteDatabase extends SQLiteOpenHelper {
         contentValues.put(KEY_TYPE,note.getType());
         contentValues.put(KEY_DATE,note.getDate());
         contentValues.put(KEY_PARENT,note.getParent());
-        Toast.makeText(context, "Type: "+note.getParent().getClass().getName(), Toast.LENGTH_SHORT).show();
         long ID = sqLiteDatabase.insert(DATABASE_TABLE,null,contentValues);
         Toast.makeText(context, "ID: "+ID, Toast.LENGTH_SHORT).show();
         return ID;
     }
 
+    public Note getNote(long id){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query(DATABASE_TABLE,
+                new String[]{KEY_ID,KEY_TITLE,KEY_CONTENT,KEY_TYPE,KEY_DATE,KEY_PARENT},
+                KEY_ID+"=?",new String[]{String.valueOf(id)},null,null,KEY_TITLE+"ASC");
+        if(cursor!=null)
+            cursor.moveToNext();
+        Note note = new Note(cursor.getLong(0), cursor.getString(1),
+                cursor.getString(2), cursor.getString(3), cursor.getString(4),
+                cursor.getString(5));
+        cursor.close();
+        return note;
+    }
+
+    public List<Note> getNotes(String[] values){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        List<Note> notes = new ArrayList<>();
+        String[] keys = {KEY_TYPE,KEY_PARENT};
+        String query = buildSelectionQuery(keys,values);
+        Cursor cursor = sqLiteDatabase.query(DATABASE_TABLE,
+                new String[]{KEY_ID,KEY_TITLE,KEY_CONTENT,KEY_TYPE,KEY_DATE,KEY_PARENT},
+                KEY_TYPE+"=? AND "+KEY_PARENT+"=?",
+                values,null,null,KEY_TITLE);
+        if(cursor.moveToFirst()){
+            do{
+                Note note = new Note();
+                note.setId(cursor.getLong(0));
+                note.setTitle(cursor.getString(1));
+                note.setContent(cursor.getString(2));
+                note.setType(cursor.getString(3));
+                note.setDate(cursor.getString(4));
+                note.setParent(cursor.getString(5));
+                notes.add(note);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
+        return notes;
+    }
+
+    private String buildSelectionQuery(String[] whereKey,String[] wheres){
+        String q = "SELECT * FROM "+DATABASE_TABLE + " WHERE ";
+        if(whereKey.length==1){
+            q=q+" WHERE "+ whereKey[0] + "=" + wheres[0] + " ORDER BY "+ KEY_TITLE;
+        }else if(whereKey.length>1){
+            for(int i=0;i<whereKey.length;i++){
+                if(i>0)
+                    q += " AND ";
+                q += whereKey[i] + "=" + wheres[i];
+            }
+            q = q + " ORDER BY " + KEY_TITLE;
+        }
+        return q;
+    }
 }
