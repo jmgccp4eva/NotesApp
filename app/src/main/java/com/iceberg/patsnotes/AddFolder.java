@@ -34,7 +34,7 @@ public class AddFolder extends AppCompatActivity {
         folder = getIntent().getStringExtra("folder");
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-        recyclerView = findViewById(R.id.rvFolderList);
+        recyclerView = findViewById(R.id.rvNotesList);
         noteDatabase = new NoteDatabase(this);
         notes = noteDatabase.getNotes(new String[]{"folder", "null"});
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -44,19 +44,19 @@ public class AddFolder extends AppCompatActivity {
 
     public void saveFolder(View view) {
         String folderName = editText.getText().toString();
-        if(folderName.length()>0){
+        if (folderName.length() > 0) {
 
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
             String title = editText.getText().toString();
             String content = "";
             String type = "folder";
             calendar = Calendar.getInstance();
-            String date = (calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.DAY_OF_MONTH)+"/"+
-                    calendar.get(Calendar.YEAR)+"\n"+pad(calendar.get(Calendar.HOUR))+":"+
-                    pad(calendar.get(Calendar.MINUTE));
-            Note note = new Note(title,content,type,date,"null");
+            String date = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" +
+                    calendar.get(Calendar.YEAR) + "\n" + AddNote.pad(calendar.get(Calendar.HOUR)) + ":" +
+                    AddNote.pad(calendar.get(Calendar.MINUTE));
+            Note note = new Note(title, content, type, date, "null");
             NoteDatabase noteDatabase = new NoteDatabase(this);
             noteDatabase.addNote(note);
 
@@ -66,18 +66,11 @@ public class AddFolder extends AppCompatActivity {
             overridePendingTransition(0, 0);
             startActivity(getIntent());
             overridePendingTransition(0, 0);
-        }else{
+        } else {
             Toast toast = Toast.makeText(this, "Please enter a folder name to save", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER,0,0);
+            toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
-    }
-
-    private String pad(int i) {
-        if(i<10){
-            return "0"+i;
-        }
-        return String.valueOf(i);
     }
 
     public void returnHome(View view) {

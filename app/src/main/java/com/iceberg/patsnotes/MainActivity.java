@@ -1,5 +1,9 @@
 package com.iceberg.patsnotes;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,11 +28,30 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     RecyclerView recyclerView;
     Adapter adapter;
     List<Note> notes;
+    String pageToReturnTo;
+
+    ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode()==1203){
+                        Intent intent = result.getData();
+                        if(intent!=null){
+                            Intent i = new Intent(MainActivity.this, MainActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        pageToReturnTo = "Main";
         folder = getIntent().getStringExtra("folder");
         int leng;
         try {
@@ -43,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
         recyclerView.setAdapter(adapter);
+
     }
 
     public void showPopUp(View view) {
@@ -58,9 +82,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Intent i;
         switch (menuItem.getItemId()){
             case R.id.addNoteBtn:
-                i = new Intent(this,AddNote.class);
+
+                // Need result stuff here
+                i = new Intent(MainActivity.this,AddNote.class);
                 i.putExtra("folder",folder);
-                startActivity(i);
+                activityResultLauncher.launch(i);
                 return true;
             case R.id.addFolderBtn:
                 i = new Intent(this,AddFolder.class);

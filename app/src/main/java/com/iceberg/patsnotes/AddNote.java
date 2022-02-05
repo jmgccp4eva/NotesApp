@@ -2,10 +2,13 @@ package com.iceberg.patsnotes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.util.Calendar;
 
 public class AddNote extends AppCompatActivity {
@@ -13,16 +16,19 @@ public class AddNote extends AppCompatActivity {
     EditText editText;
     String folder;
     Calendar calendar;
+    String folder1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
         folder = getIntent().getStringExtra("folder");
+        folder1 = folder;
+        Toast.makeText(this, "My folder: "+folder+"\n\n"+folder1, Toast.LENGTH_SHORT).show();
         editText = findViewById(R.id.etNote);
         editText.requestFocus();
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+        //InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     public void saveNote(View view) {
@@ -36,12 +42,20 @@ public class AddNote extends AppCompatActivity {
         String date = (calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.DAY_OF_MONTH)+"/"+
                 calendar.get(Calendar.YEAR)+"\n"+pad(calendar.get(Calendar.HOUR))+":"+
                 pad(calendar.get(Calendar.MINUTE));
+        folder1 = folder;
+        Toast.makeText(this,"Right after folder1 supplied\n"+folder1,Toast.LENGTH_LONG).show();
         Note note = new Note(title,content,type,date,folder);
         NoteDatabase noteDatabase = new NoteDatabase(this);
-        noteDatabase.addNote(note);
+        long x = noteDatabase.addNote(note);
+        Intent intent = new Intent();
+        intent.putExtra("result",String.valueOf(x));
+        intent.putExtra("folder",folder1);
+        Toast.makeText(this,"AFTER INTENT: "+folder1,Toast.LENGTH_LONG).show();
+        setResult(1203,intent);
+        super.onBackPressed();
     }
 
-    private String pad(int i) {
+    public static String pad(int i) {
         if(i<10){
             return "0"+i;
         }

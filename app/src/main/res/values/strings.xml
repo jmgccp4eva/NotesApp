@@ -6,4 +6,6 @@
     <string name="addNote">Add Note</string>
     <string name="folderHint">Create New Folder</string>
     <string name="noLengthFolder">Please enter a folder name</string>
+    <string name="editNote">Edit Note</string>
+    <string name="notes">Notes In This Folder</string>
 </resources>

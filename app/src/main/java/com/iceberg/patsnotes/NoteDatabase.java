@@ -82,7 +82,7 @@ public class NoteDatabase extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query(DATABASE_TABLE,
                 new String[]{KEY_ID,KEY_TITLE,KEY_CONTENT,KEY_TYPE,KEY_DATE,KEY_PARENT},
-                KEY_ID+"=?",new String[]{String.valueOf(id)},null,null,KEY_TITLE+"ASC");
+                KEY_ID+"=?",new String[]{String.valueOf(id)},null,null,KEY_TITLE);
         if(cursor!=null)
             cursor.moveToNext();
         Note note = new Note(cursor.getLong(0), cursor.getString(1),
@@ -90,6 +90,15 @@ public class NoteDatabase extends SQLiteOpenHelper {
                 cursor.getString(5));
         cursor.close();
         return note;
+    }
+
+    public int UpdateRecord(Note note){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_TITLE,note.getTitle());
+        contentValues.put(KEY_CONTENT,note.getContent());
+        contentValues.put(KEY_DATE,note.getDate());
+        return db.update(DATABASE_TABLE,contentValues,KEY_ID+"=?",new String[]{String.valueOf(note.getId())});
     }
 
     public List<Note> getNotes(String[] values){
