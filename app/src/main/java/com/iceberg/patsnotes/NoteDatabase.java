@@ -1,7 +1,5 @@
 package com.iceberg.patsnotes;
 
-import static android.icu.text.MessagePattern.ArgType.SELECT;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,9 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +16,12 @@ public class NoteDatabase extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "patsNotesDB.db";
     private static final String DATABASE_TABLE = "patsNotesDBTable";
-
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_CONTENT = "content";
     private static final String KEY_TYPE = "type";
     private static final String KEY_DATE = "date";
     private static final String KEY_PARENT = "parent";
-
     private static final String CREATE_TABLE = "create table "+DATABASE_TABLE+" ("+
             KEY_ID+" integer primary key autoincrement, "+
             KEY_TITLE+" text, "+
@@ -41,14 +35,12 @@ public class NoteDatabase extends SQLiteOpenHelper {
     public NoteDatabase(@Nullable Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
         this.context = context;
-        Toast.makeText(context, "Constructor called", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try{
             sqLiteDatabase.execSQL(CREATE_TABLE);
-            Toast.makeText(context, "onCreate Called", Toast.LENGTH_SHORT).show();
         }catch (SQLException e){
             Toast.makeText(context, "ERROR: "+e, Toast.LENGTH_SHORT).show();
         }
@@ -57,7 +49,6 @@ public class NoteDatabase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         try{
-            Toast.makeText(context, "ONUPGRADE CALLED", Toast.LENGTH_SHORT).show();
             sqLiteDatabase.execSQL(DROP_TABLE);
             onCreate(sqLiteDatabase);
         }catch (SQLException e){
@@ -73,9 +64,13 @@ public class NoteDatabase extends SQLiteOpenHelper {
         contentValues.put(KEY_TYPE,note.getType());
         contentValues.put(KEY_DATE,note.getDate());
         contentValues.put(KEY_PARENT,note.getParent());
-        long ID = sqLiteDatabase.insert(DATABASE_TABLE,null,contentValues);
-        Toast.makeText(context, "ID: "+ID, Toast.LENGTH_SHORT).show();
-        return ID;
+        return sqLiteDatabase.insert(DATABASE_TABLE,null,contentValues);
+    }
+
+    public void deleteNote(long id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(DATABASE_TABLE,KEY_ID+"=?",new String[]{String.valueOf(id)});
+        sqLiteDatabase.close();
     }
 
     public Note getNote(long id){
@@ -85,6 +80,7 @@ public class NoteDatabase extends SQLiteOpenHelper {
                 KEY_ID+"=?",new String[]{String.valueOf(id)},null,null,KEY_TITLE);
         if(cursor!=null)
             cursor.moveToNext();
+        long temp = cursor.getLong(0);
         Note note = new Note(cursor.getLong(0), cursor.getString(1),
                 cursor.getString(2), cursor.getString(3), cursor.getString(4),
                 cursor.getString(5));
@@ -133,8 +129,8 @@ public class NoteDatabase extends SQLiteOpenHelper {
         }else if(whereKey.length>1){
             for(int i=0;i<whereKey.length;i++){
                 if(i>0)
-                    q += " AND ";
-                q += whereKey[i] + "=" + wheres[i];
+                    q = q + " AND ";
+                q = q + whereKey[i] + "=" + wheres[i];
             }
             q = q + " ORDER BY " + KEY_TITLE;
         }

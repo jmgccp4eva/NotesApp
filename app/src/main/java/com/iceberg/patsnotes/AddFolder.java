@@ -3,7 +3,6 @@ package com.iceberg.patsnotes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +10,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,6 +24,7 @@ public class AddFolder extends AppCompatActivity {
     NoteDatabase noteDatabase;
     List<Note> notes;
     Adapter adapter;
+    TextView tvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,9 @@ public class AddFolder extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvNotesList);
         noteDatabase = new NoteDatabase(this);
         notes = noteDatabase.getNotes(new String[]{"folder", "null"});
+        tvTitle = findViewById(R.id.tvTitle);
+        String temp = tvTitle.getText().toString()+" ("+notes.size()+")";
+        tvTitle.setText(temp);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
         recyclerView.setAdapter(adapter);
@@ -80,8 +83,5 @@ public class AddFolder extends AppCompatActivity {
         intent.putExtra("folder","null");
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-    }
-
-    public void deleteRecord(View view) {
     }
 }

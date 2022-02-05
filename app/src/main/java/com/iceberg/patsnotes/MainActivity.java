@@ -7,22 +7,19 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     NoteDatabase noteDatabase;
+    String temp;
     TextView pageTitle;
     String folder;
     RecyclerView recyclerView;
@@ -63,6 +60,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         recyclerView = findViewById(R.id.listOfNotes);
         noteDatabase = new NoteDatabase(this);
         notes = noteDatabase.getNotes(new String[]{"note", "null"});
+        pageTitle = findViewById(R.id.tvTitle);
+        temp = pageTitle.getText().toString() + " ("+notes.size()+")";
+        pageTitle.setText(temp);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
         recyclerView.setAdapter(adapter);
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Intent i;
         switch (menuItem.getItemId()){
             case R.id.addNoteBtn:
-
                 // Need result stuff here
                 i = new Intent(MainActivity.this,AddNote.class);
                 i.putExtra("folder",folder);
@@ -96,8 +95,5 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             default:
                 return false;
         }
-    }
-
-    public void deleteRecord(View view) {
     }
 }

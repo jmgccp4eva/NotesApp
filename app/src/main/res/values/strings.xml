@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">Pat\'s Notes</string>
+    <string name="app_name">Notes</string>
     <string name="note">Note</string>
     <string name="folder">Folder</string>
     <string name="folders">Folders</string>
     <string name="addNote">Add Note</string>
     <string name="folderHint">Create New Folder</string>
-    <string name="noLengthFolder">Please enter a folder name</string>
     <string name="editNote">Edit Note</string>
     <string name="notes">Notes In This Folder</string>
+    <string name="warning">Warning</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="todo">TODO</string>
 </resources>

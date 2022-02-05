@@ -1,17 +1,14 @@
 package com.iceberg.patsnotes;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.Calendar;
 
 public class EditRecord extends AppCompatActivity {
@@ -54,15 +51,6 @@ public class EditRecord extends AppCompatActivity {
         imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(etDetails.getWindowToken(), 0);
         Toast.makeText(this,"id: "+id+"\n\nnote.getId(): "+note.getId(),Toast.LENGTH_LONG).show();
-        /*if (id == note.getId()) {
-
-            Toast.makeText(this, "" + note.getTitle() + " UPDATED", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "ERROR UPDATING " + note.getTitle(), Toast.LENGTH_SHORT).show();
-        }*/
         finish();
-
-        // NEED TO CHECK TO MAKE SURE THAT NOTE IN FOLDER GOES BACK TO THE VIEW OF NOTES IN THAT FOLDER
-        // AND NOT MAINACTIVITY
     }
 }

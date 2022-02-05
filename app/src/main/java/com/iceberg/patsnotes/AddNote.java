@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.Calendar;
 
 public class AddNote extends AppCompatActivity {
@@ -27,8 +26,6 @@ public class AddNote extends AppCompatActivity {
         Toast.makeText(this, "My folder: "+folder+"\n\n"+folder1, Toast.LENGTH_SHORT).show();
         editText = findViewById(R.id.etNote);
         editText.requestFocus();
-        //InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        //imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
     }
 
     public void saveNote(View view) {
@@ -50,7 +47,6 @@ public class AddNote extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra("result",String.valueOf(x));
         intent.putExtra("folder",folder1);
-        Toast.makeText(this,"AFTER INTENT: "+folder1,Toast.LENGTH_LONG).show();
         setResult(1203,intent);
         super.onBackPressed();
     }
