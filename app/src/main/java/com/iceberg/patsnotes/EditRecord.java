@@ -8,7 +8,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 import java.util.Calendar;
 
 public class EditRecord extends AppCompatActivity {
@@ -32,7 +31,6 @@ public class EditRecord extends AppCompatActivity {
         etDetails = findViewById(R.id.etDetails);
         etDetails.setText(note.getContent());
         etDetails.setMovementMethod(new ScrollingMovementMethod());
-        Toast.makeText(this,""+folder,Toast.LENGTH_SHORT).show();
     }
 
     public void updateNote(View view) {
@@ -50,7 +48,24 @@ public class EditRecord extends AppCompatActivity {
         int id = noteDatabase.UpdateRecord(note);
         imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(etDetails.getWindowToken(), 0);
-        Toast.makeText(this,"id: "+id+"\n\nnote.getId(): "+note.getId(),Toast.LENGTH_LONG).show();
+        if(note.getType().equals("note")){
+            // NOTES
+            if(note.getParent().equals("null")){
+                // NOTES NOT IN FOLDER
+                Intent i = new Intent(this, MainActivity.class);
+                i.putExtra("folder","null");
+                this.startActivity(i);
+                finish();
+            }else{
+                // NOTES IN FOLDER
+                Intent i = new Intent(this,NotesInFolders.class);
+                i.putExtra("folder",note.getParent());
+                this.startActivity(i);
+                finish();
+            }
+        }else{
+            // FOLDERS
+        }
         finish();
     }
 }

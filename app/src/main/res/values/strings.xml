@@ -11,4 +11,11 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="todo">TODO</string>
+    <string name="changeORdelete">Change Folder Name OR Delete?</string>
+    <string name="selectFolder">Select Folder to Edit</string>
+    <string name="edit_folder_name">Edit Folder</string>
+    <string name="save">Save</string>
+    <string name="saveNewFolderName">Save New Folder Name</string>
+    <string name="enter_new_folder_name">Enter new folder name</string>
+    <string name="would_you_like_to_delete">Would you like to delete</string>
 </resources>

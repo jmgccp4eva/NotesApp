@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@color/body"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent"
+    tools:context=".AddFolder">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
@@ -14,34 +14,22 @@
         android:background="@color/toolbar"
         tools:ignore="MissingConstraints">
 
-
         <TextView
-            android:id="@+id/tvTitle"
+            android:id="@+id/tvTitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:text="@string/app_name"
+            android:text="@string/selectFolder"
             android:textColor="#FFFFFF"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ivGoToAddNoteOrAddFolder"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
-            android:layout_marginEnd="5dp"
-            android:onClick="showPopUp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_add_24"
-            tools:ignore="UsingOnClickInXml" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listOfNotes"
+        android:id="@+id/rvNotesList1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
@@ -50,10 +38,9 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:scrollbars="vertical"
         android:fadeScrollbars="true"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

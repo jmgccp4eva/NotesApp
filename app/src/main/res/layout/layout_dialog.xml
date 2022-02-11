@@ -26,68 +26,89 @@
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imageIcon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/textTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="@string/todo"
-            app:layout_constraintTop_toTopOf="@id/textTitle"
-            app:tint="@color/white" />
-
         <TextView
-            android:id="@+id/textMessage"
+            android:id="@+id/tvMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="40dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="15dp"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textTitle"
             tools:text="Let's see what happens when I keep typing\n\nHi" />
 
-
+        <EditText
+            android:id="@+id/etNewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/enter_new_folder_name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnCancel"
+        android:id="@+id/btnEdt"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/button_warning"
+        android:background="@drawable/button_ok"
+        android:gravity="center"
+        android:text="@string/saveNewFolderName"
         android:textColor="@color/white"
+        android:layout_marginTop="20dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
-        app:layout_constraintEnd_toStartOf="@id/btnDelete"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutDialog" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutDialog" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDelete"
+        android:id="@+id/btnDel"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="40dp"
-        android:background="@drawable/button_ok"
+        android:background="@drawable/button_warning"
+        android:gravity="center"
+        android:text="@string/delete"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnCancel"
-        app:layout_constraintTop_toBottomOf="@id/layoutDialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnEdt"
         tools:ignore="MissingConstraints" />
 
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btnCancel"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:background="@drawable/button_warning"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="14sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/layoutDialog"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/btnDelete"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/layoutDialog" />-->
 
 
 

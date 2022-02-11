@@ -3,6 +3,26 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/border.xml" value="0.124" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/button_ok.xml" value="0.124" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/dialog_background.xml" value="0.124" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.193" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/ic_baseline_warning_24.xml" value="0.193" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/ic_launcher_background.xml" value="0.144" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/drawable/title_warning_background.xml" value="0.144" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout-v23/layout_dialog.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_add_folder.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_add_note.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_edit_folder.xml" value="0.176" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_edit_folder_selector.xml" value="0.23777173913043478" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_edit_record.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_main.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/activity_notes_in_folders.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/custom_folder_selector.xml" value="0.2997393570807993" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/custom_list_view.xml" value="0.18489583333333334" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/layout_dialog.xml" value="0.4" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/layout/layout_dialog2.xml" value="0.536" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/Copy/3rd copy/PatsNotes/app/src/main/res/menu/note_or_folder.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/drawable/border.xml" value="0.252" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/drawable/button_OK.xml" value="0.232" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/drawable/button_warning.xml" value="0.232" />
@@ -12,6 +32,8 @@
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/drawable/title_warning_background.xml" value="0.232" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_add_folder.xml" value="0.2" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_add_note.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_edit_folder.xml" value="0.23958333333333334" />
+        <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_edit_folder_selection.xml" value="0.23958333333333334" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_edit_record.xml" value="0.264" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_main.xml" value="0.176" />
         <entry key="..\:/Users/Dharhim/AndroidStudioProjects/PatsNotes/app/src/main/res/layout/activity_notes_in_folders.xml" value="0.16983695652173914" />

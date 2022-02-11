@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -37,9 +36,11 @@ public class AddFolder extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvNotesList);
         noteDatabase = new NoteDatabase(this);
         notes = noteDatabase.getNotes(new String[]{"folder", "null"});
+
         tvTitle = findViewById(R.id.tvTitle);
         String temp = tvTitle.getText().toString()+" ("+notes.size()+")";
         tvTitle.setText(temp);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
         recyclerView.setAdapter(adapter);
@@ -53,6 +54,7 @@ public class AddFolder extends AppCompatActivity {
             imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
 
             String title = editText.getText().toString();
+
             String content = "";
             String type = "folder";
             calendar = Calendar.getInstance();
@@ -76,12 +78,5 @@ public class AddFolder extends AppCompatActivity {
         }
     }
 
-    public void returnHome(View view) {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-        Intent intent = new Intent(this,MainActivity.class);
-        intent.putExtra("folder","null");
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
+
 }

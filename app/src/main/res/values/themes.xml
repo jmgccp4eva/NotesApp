@@ -1,15 +1,13 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.PatsNotes" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-
-        <!-- Secondary brand color. -->
-
-        <!-- Status bar color. -->
-
-        <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/animation</item>
     </style>
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+    <style name="animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 </resources>

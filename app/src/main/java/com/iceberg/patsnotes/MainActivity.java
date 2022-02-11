@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new Adapter(this,notes);
         recyclerView.setAdapter(adapter);
-
     }
 
     public void showPopUp(View view) {
@@ -84,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             case R.id.addNoteBtn:
                 // Need result stuff here
                 i = new Intent(MainActivity.this,AddNote.class);
-                i.putExtra("folder",folder);
+                i.putExtra("folder","null");
                 activityResultLauncher.launch(i);
                 return true;
             case R.id.addFolderBtn:

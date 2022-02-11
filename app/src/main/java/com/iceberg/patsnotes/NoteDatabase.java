@@ -91,9 +91,11 @@ public class NoteDatabase extends SQLiteOpenHelper {
     public int UpdateRecord(Note note){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_ID,note.getId());
         contentValues.put(KEY_TITLE,note.getTitle());
         contentValues.put(KEY_CONTENT,note.getContent());
         contentValues.put(KEY_DATE,note.getDate());
+        contentValues.put(KEY_PARENT,note.getParent());
         return db.update(DATABASE_TABLE,contentValues,KEY_ID+"=?",new String[]{String.valueOf(note.getId())});
     }
 
