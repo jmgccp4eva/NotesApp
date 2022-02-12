@@ -10,10 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.util.List;
 
 public class NotesInFolders extends AppCompatActivity {
@@ -37,7 +35,6 @@ public class NotesInFolders extends AppCompatActivity {
                             Intent i = new Intent(NotesInFolders.this, NotesInFolders.class);
                             String folder1 = intent.getStringExtra("folder");
                             i.putExtra("folder",folder1);
-                            Toast.makeText(NotesInFolders.this,"FOLDER\n\n\n"+folder1,Toast.LENGTH_LONG).show();
                             startActivity(i);
                             finish();
                         }
@@ -53,15 +50,11 @@ public class NotesInFolders extends AppCompatActivity {
         noteDatabase = new NoteDatabase(this);
         recyclerView = findViewById(R.id.rvNotesList);
         folder_id = getIntent().getLongExtra("ID",0);
-        Log.i("thisData","Folder_id: "+folder_id);
         if(folder_id==0){
             folder_id = Long.parseLong(getIntent().getStringExtra("folder"));
         }
         constraintLayout = findViewById(R.id.outerConstraintForCustom);
-
-        Toast.makeText(this,"XYZ\n"+folder_id,Toast.LENGTH_SHORT).show();
         notes = noteDatabase.getNotes(new String[]{"note", String.valueOf(folder_id)});
-
         tvTitle = findViewById(R.id.tvTitle);
         String titleBarTitle = tvTitle.getText().toString();
         titleBarTitle+="("+notes.size()+")";
