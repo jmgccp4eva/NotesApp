@@ -42,7 +42,7 @@ public class AddFolder extends AppCompatActivity {
         tvTitle.setText(temp);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Adapter(this,notes);
+        adapter = new Adapter(this,notes,AddFolder.this);
         recyclerView.setAdapter(adapter);
     }
 

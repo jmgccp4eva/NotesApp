@@ -43,7 +43,7 @@ public class EditFolderSelector extends AppCompatActivity {
         String temp = tvTitle.getText().toString()+" ("+notes.size()+")";
         tvTitle.setText(temp);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Adapter(this,notes);
+        adapter = new Adapter(this,notes, adapter.mActivity);
         recyclerView.setAdapter(adapter);
     }
 }

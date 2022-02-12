@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,7 @@ public class NotesInFolders extends AppCompatActivity {
         noteDatabase = new NoteDatabase(this);
         recyclerView = findViewById(R.id.rvNotesList);
         folder_id = getIntent().getLongExtra("ID",0);
+        Log.i("thisData","Folder_id: "+folder_id);
         if(folder_id==0){
             folder_id = Long.parseLong(getIntent().getStringExtra("folder"));
         }
@@ -65,7 +67,7 @@ public class NotesInFolders extends AppCompatActivity {
         titleBarTitle+="("+notes.size()+")";
         tvTitle.setText(titleBarTitle);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Adapter(this,notes);
+        adapter = new Adapter(this,notes,NotesInFolders.this);
         recyclerView.setAdapter(adapter);
     }
 

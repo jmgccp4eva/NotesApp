@@ -15,9 +15,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".EditFolderSelector"
-            android:exported="false" />
-        <activity
             android:name=".NotesInFolders"
             android:exported="false" />
         <activity

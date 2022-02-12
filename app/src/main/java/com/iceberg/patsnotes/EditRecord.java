@@ -46,25 +46,26 @@ public class EditRecord extends AppCompatActivity {
         note.setContent(content);
         note.setDate(date);
         int id = noteDatabase.UpdateRecord(note);
-        imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(etDetails.getWindowToken(), 0);
+
         if(note.getType().equals("note")){
             // NOTES
             if(note.getParent().equals("null")){
                 // NOTES NOT IN FOLDER
-                Intent i = new Intent(this, MainActivity.class);
-                i.putExtra("folder","null");
-                this.startActivity(i);
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("folder","null");
+                finishActivity(1203);
+                this.startActivity(intent);
                 finish();
             }else{
                 // NOTES IN FOLDER
                 Intent i = new Intent(this,NotesInFolders.class);
-                i.putExtra("folder",note.getParent());
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("folder",folder);
                 this.startActivity(i);
+                finishActivity(1203);
                 finish();
             }
-        }else{
-            // FOLDERS
         }
         finish();
     }

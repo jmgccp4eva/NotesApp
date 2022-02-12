@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         temp = pageTitle.getText().toString() + " ("+notes.size()+")";
         pageTitle.setText(temp);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Adapter(this,notes);
+        adapter = new Adapter(this,notes,MainActivity.this);
         recyclerView.setAdapter(adapter);
     }
 

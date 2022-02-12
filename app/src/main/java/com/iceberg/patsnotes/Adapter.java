@@ -8,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,10 +23,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     String message = "Would you like to edit this note's name or delete this note?";
     String mTitle, title;
     TextView tvetNewName;
+    Activity mActivity;
 
-    Adapter(Context context, List<Note> notes){
+    Adapter(Context context, List<Note> notes,Activity mActivity){
         this.layoutInflater = LayoutInflater.from(context);
         this.notes = notes;
+        this.mActivity=mActivity;
     }
 
 
@@ -65,12 +65,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     title = notes.get(getAdapterPosition()).getTitle();
                     String type = notes.get(getAdapterPosition()).getType();
                     String parentLookingFor = String.valueOf(notes.get(getAdapterPosition()).getId());
-                    String temp="Are you sure you want to delete folder "+title+"?\nIt contains ";
+                    String temp="";
                         // get notes in folder and change
                     if(type.equals("folder")){
                         NoteDatabase noteDatabase = new NoteDatabase(view.getContext());
                         children = noteDatabase.getNotes(new String[]{"note",parentLookingFor});
-                        temp+=children.size()+" notes that will also be deleted.  These notes are:\n";
                         for(int i=0;i<children.size();i++){
                             if(i==(children.size()-1)){
                                 temp=temp+" & ";
@@ -81,7 +80,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         }
                     }
                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext(),R.style.AlertDialogTheme);
-                    View v = null;
+                    View v;
                     if(type.equals("note")){
                         v = LayoutInflater.from(view.getContext()).inflate(
                                 R.layout.layout_dialog2,
@@ -107,7 +106,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         tString = tString + "Note: " + notes.get(getAdapterPosition()).getTitle()+"?";
                         tvMessage.setText(tString);
                     }else{
-                        String tString = "Either Enter a New Folder Name and Click Save OR Delete Folder: " + notes.get(getAdapterPosition()).getTitle()+"?";
+                        String tString = "Either Enter a New Folder Name and Click Save OR Delete Folder named " + notes.get(getAdapterPosition()).getTitle()+".  ";
+                        if(children.size()==0){
+                            tString = tString + "This folder is EMPTY.";
+                        }else if(children.size()==1){
+                            tString = tString + "There is 1 note in this folder that will be deleted.  It is: "+children.get(0).getTitle();
+                        }else{
+                            tString = tString + "There are "+children.size()+" notes in this folder that will be deleted.  They are: ";
+                            for(int i=0;i<children.size();i++){
+                                tString = tString + children.get(i).getTitle();
+                                if(i<(children.size()-1)){
+                                    tString = tString + ", ";
+                                }
+                            }
+                        }
+
                         tvMessage.setText(tString);
                     }
 
@@ -124,18 +137,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                         btnDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Toast.makeText(view.getContext(), "FOLDER",Toast.LENGTH_SHORT).show();
+                                NoteDatabase ndb = new NoteDatabase(view.getContext());
+                                for(int i=0;i<children.size();i++){
+                                    ndb.deleteNote(children.get(i).getId());
+                                }
+                                ndb.deleteNote(notes.get(getAdapterPosition()).getId());
+                                Intent intent = new Intent(view.getContext(),AddFolder.class);
+                                intent.putExtra("folder","folder");
+                                view.getContext().startActivity(intent);
+                                alertDialog.dismiss();
+                                ((Activity)view.getContext()).finish();
                             }
                         });
                         btnEdt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
                                 String newTitle = tvetNewName.getText().toString();
                                 if(!notes.get(getAdapterPosition()).getTitle().equals(newTitle)){
                                     Note note = notes.get(getAdapterPosition());
-
-
                                     Calendar calendar = Calendar.getInstance();
                                     String date = (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH) + "/" +
                                             calendar.get(Calendar.YEAR) + "\n" + AddNote.pad(calendar.get(Calendar.HOUR)) + ":" +
@@ -160,9 +179,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                                 String parent = notes.get(getAdapterPosition()).getParent();
                                 if(parent.equals("null")){
                                     // NOTE NOT IN FOLDER
-                                    Toast.makeText(view.getContext(), "Not in folder NOTE",Toast.LENGTH_SHORT).show();
+                                    NoteDatabase ndb = new NoteDatabase(view.getContext());
+                                    ndb.deleteNote(notes.get(getAdapterPosition()).getId());
+                                    Intent intent = new Intent(view.getContext(),MainActivity.class);
+                                    intent.putExtra("folder","null");
+                                    mActivity.setResult(1203, intent);
+                                    view.getContext().startActivity(intent);
+                                    alertDialog.dismiss();
+                                    ((Activity)view.getContext()).finish();
                                 }else{
-                                    Toast.makeText(view.getContext(), "IN folder NOTE",Toast.LENGTH_SHORT).show();
+                                    NoteDatabase ndb = new NoteDatabase(view.getContext());
+                                    ndb.deleteNote(notes.get(getAdapterPosition()).getId());
+                                    Intent intent = new Intent(view.getContext(),NotesInFolders.class);
+                                    intent.putExtra("folder",notes.get(getAdapterPosition()).getParent());
+                                    view.getContext().startActivity(intent);
+                                    alertDialog.dismiss();
+                                    ((Activity)view.getContext()).finish();
                                 }
                             }
                         });
@@ -179,9 +211,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 long id = notes.get(getAdapterPosition()).getId();
                 if(type.equals("note")){
                     Intent intent = new Intent(view.getContext(),EditRecord.class);
+                    long thisID = notes.get(getAdapterPosition()).getId();
+                    String thisType = notes.get(getAdapterPosition()).getType();
+                    String thisParent = notes.get(getAdapterPosition()).getParent();
                     intent.putExtra("ID",notes.get(getAdapterPosition()).getId());
                     intent.putExtra("type",notes.get(getAdapterPosition()).getType());
-                    intent.putExtra("parent",notes.get(getAdapterPosition()).getParent());
+                    intent.putExtra("folder",notes.get(getAdapterPosition()).getParent());
                     view.getContext().startActivity(intent);
                 }else if(type.equals("folder")){
                     Intent intent = new Intent(view.getContext(),NotesInFolders.class);
